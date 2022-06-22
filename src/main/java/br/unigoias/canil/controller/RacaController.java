@@ -22,6 +22,16 @@ public class RacaController {
         return racaService.findAll();
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Raca> show(@PathVariable Long id) {
+        try {
+            Raca raca = racaService.findById(id);
+            return ResponseEntity.ok(raca);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Raca> create(@RequestBody Raca raca) {
         try {
@@ -37,6 +47,16 @@ public class RacaController {
         try {
             racaService.updateById(id, raca);
             return ResponseEntity.ok(raca);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            racaService.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
