@@ -30,13 +30,10 @@ public class CaoService {
         throw new EntityNotFoundException("A entidade não existe para o id " + id);
     }
 
-    public Cao create(Cao cao) {
-        return caoRepository.save(cao);
-    }
-
     public Cao updateById(Long id, Cao cao) throws EntityNotFoundException {
 
         Optional<Cao> novaCao = caoRepository.findById(id);
+        
         if (novaCao.isPresent()) {
             novaCao.get().setNome(cao.getNome());
             return caoRepository.save(novaCao.get());

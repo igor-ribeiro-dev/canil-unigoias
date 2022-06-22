@@ -19,9 +19,6 @@ public class RacaController {
     @Autowired
     private RacaService racaService;
 
-    @Autowired
-    private CaoService caoService;
-
     @GetMapping
     public List<Raca> index() {
         return racaService.findAll();

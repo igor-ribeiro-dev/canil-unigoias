@@ -63,7 +63,7 @@ public class RacaService {
 
         Optional<Raca> raca = racaRepository.findById(id);
 
-        if(raca.isPresent()) {
+        if (raca.isPresent()) {
             cao.setRaca(raca.get());
             return caoRepository.save(cao);
         }
