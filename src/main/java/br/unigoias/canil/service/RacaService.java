@@ -1,6 +1,8 @@
 package br.unigoias.canil.service;
 
+import br.unigoias.canil.model.Cao;
 import br.unigoias.canil.model.Raca;
+import br.unigoias.canil.repository.CaoRepository;
 import br.unigoias.canil.repository.RacaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class RacaService {
 
     @Autowired
     private RacaRepository racaRepository;
+
+    @Autowired
+    private CaoRepository caoRepository;
 
     public List<Raca> findAll() {
         return racaRepository.findAll();
@@ -52,5 +57,17 @@ public class RacaService {
         }
 
         racaRepository.deleteById(id);
+    }
+
+    public Cao createCaoByRacaId(Long id, Cao cao) throws EntityNotFoundException {
+
+        Optional<Raca> raca = racaRepository.findById(id);
+
+        if(raca.isPresent()) {
+            cao.setRaca(raca.get());
+            return caoRepository.save(cao);
+        }
+
+        throw new EntityNotFoundException("A entidade não existe para o id " + id);
     }
 }

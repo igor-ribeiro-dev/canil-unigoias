@@ -1,6 +1,8 @@
 package br.unigoias.canil.controller;
 
+import br.unigoias.canil.model.Cao;
 import br.unigoias.canil.model.Raca;
+import br.unigoias.canil.service.CaoService;
 import br.unigoias.canil.service.RacaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ public class RacaController {
 
     @Autowired
     private RacaService racaService;
+
+    @Autowired
+    private CaoService caoService;
 
     @GetMapping
     public List<Raca> index() {
@@ -57,6 +62,16 @@ public class RacaController {
         try {
             racaService.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("{id}/caes")
+    public ResponseEntity<Cao> createCao(@PathVariable Long id, @RequestBody Cao cao) {
+        try {
+            Cao novoCao = racaService.createCaoByRacaId(id, cao);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoCao);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
