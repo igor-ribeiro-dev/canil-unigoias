@@ -45,8 +45,8 @@ public class RacaController {
     @PutMapping("{id}")
     public ResponseEntity<Raca> update(@PathVariable Long id, @RequestBody Raca raca) {
         try {
-            racaService.updateById(id, raca);
-            return ResponseEntity.ok(raca);
+            Raca novaRaca = racaService.updateById(id, raca);
+            return ResponseEntity.ok(novaRaca);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

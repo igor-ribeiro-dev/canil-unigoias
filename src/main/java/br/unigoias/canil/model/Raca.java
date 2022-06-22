@@ -1,9 +1,9 @@
 package br.unigoias.canil.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Raca {
@@ -13,6 +13,10 @@ public class Raca {
     private Long id;
 
     private String descricao;
+
+    @CreationTimestamp
+    @Column(name = "data_inclusao")
+    private Date dataInclusao;
 
     public Raca() {}
 
@@ -35,5 +39,13 @@ public class Raca {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Date getDataInclusao() {
+        return dataInclusao;
+    }
+
+    public void setDataInclusao(Date dataInclusao) {
+        this.dataInclusao = dataInclusao;
     }
 }

@@ -36,9 +36,10 @@ public class RacaService {
 
     public Raca updateById(Long id, Raca raca) throws EntityNotFoundException {
 
-        if (racaRepository.existsById(id)) {
-            raca.setId(id);
-            return racaRepository.save(raca);
+        Optional<Raca> novaRaca = racaRepository.findById(id);
+        if (novaRaca.isPresent()) {
+            novaRaca.get().setDescricao(raca.getDescricao());
+            return racaRepository.save(novaRaca.get());
         }
 
         throw new EntityNotFoundException("A entidade não existe para o id " + id);
