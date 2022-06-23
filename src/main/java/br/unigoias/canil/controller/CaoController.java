@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/caes")
+@CrossOrigin(origins = "*")
 public class CaoController {
 
     @Autowired
